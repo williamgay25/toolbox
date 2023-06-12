@@ -17,11 +17,19 @@ form.addEventListener('submit', async (e) => {
     const data = await response.json();
 
     if (response.ok) {
-      qrCodeResult.innerHTML = `<p>QR Code generated successfully. Download link: <a href="${data.qr_code_url}" download>Download QR Code</a></p>`;
+      qrCodeResult.innerHTML = `
+        <p>QR Code generated successfully. Download link: 
+            <a href="${data.qr_code_url}" download>Download QR Code</a>
+        </p>
+        `;
     } else {
-      qrCodeResult.innerHTML = `<p>QR Code generation failed. Error: ${data.detail}</p>`;
+      qrCodeResult.innerHTML = `
+        <p>QR Code generation failed. Error: ${data.detail}</p>
+        `;
     }
   } catch (error) {
-    qrCodeResult.innerHTML = `<p>QR Code generation failed. Error: ${error.message}</p>`;
+    qrCodeResult.innerHTML = `
+        <p>QR Code generation failed. Error: ${error.message}</p>
+        `;
   }
 });
