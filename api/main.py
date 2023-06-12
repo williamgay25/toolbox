@@ -3,6 +3,7 @@ import time
 import boto3
 import qrcode
 import logging
+from io import BytesIO
 from fastapi import FastAPI
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
@@ -45,11 +46,6 @@ session = boto3.Session(
 # Create an S3 client
 s3 = session.client('s3')
 
-# List all the objects in the bucket
-response = s3.list_objects_v2(Bucket=S3_BUCKET_NAME)
-for obj in response['Contents']:
-    print(obj['Key'])
-
 @app.post('/generate_qr_code')
 async def generate_qr_code(website_link: str):
     try:
@@ -68,15 +64,13 @@ async def generate_qr_code(website_link: str):
         timestamp = int(time.time())  # Get current timestamp
         qr_image_path = f'qr_code_{timestamp}.png'  # Unique filename
 
-        # Save the QR code image to a file
-        qr_image.save(qr_image_path)
+        # Save the QR code image to a BytesIO object
+        qr_image_bytes = BytesIO()
+        qr_image.save(qr_image_bytes, format='PNG')
+        qr_image_bytes.seek(0)
 
         # Upload the image file to the S3 bucket
-        s3.upload_file(qr_image_path, S3_BUCKET_NAME, qr_image_path)
-
-        # Remove the local image file
-        # (comment out if you want to keep a local copy)
-        os.remove(qr_image_path)
+        s3.upload_fileobj(qr_image_bytes, S3_BUCKET_NAME, qr_image_path)
 
         # Construct the URL of the uploaded QR code image
         qr_image_url = f'https://{S3_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{qr_image_path}'
