@@ -46,6 +46,10 @@ session = boto3.Session(
 # Create an S3 client
 s3 = session.client('s3')
 
+@app.get('/generate_qr_code')
+async def generate_qr_code():
+    return {'message': 'Hello World!'}
+
 @app.post('/generate_qr_code')
 async def generate_qr_code(website_link: str):
     try:
