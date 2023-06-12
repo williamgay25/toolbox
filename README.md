@@ -13,4 +13,7 @@ simple fullstack website that serves as a "toolbox" holding multiple python scri
 
 # phase 2
 
-1. TBD
+1. set up vercel config / deploy
+2. add 1+ additional tool endpoint
+3. convert frontend to nextjs
+4. stitch them together
