@@ -1,10 +1,11 @@
 import os
 import time
-from fastapi import FastAPI
 import boto3
 import qrcode
-from fastapi.middleware.cors import CORSMiddleware
+import logging
+from fastapi import FastAPI
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 # Load the AWS credentials from the .env file
 load_dotenv()
@@ -24,6 +25,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Set up logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+# Load the AWS credentials from the .env file
 REGION_NAME = os.getenv('AWS_REGION')
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
@@ -44,12 +50,11 @@ response = s3.list_objects_v2(Bucket=S3_BUCKET_NAME)
 for obj in response['Contents']:
     print(obj['Key'])
 
-@app.get('/')
-async def root():
-    return {'message': 'Hello World!'}
-
 @app.post('/generate_qr_code')
 async def generate_qr_code(website_link: str):
+    # log the request
+    logger.info(f'Generating QR code for {website_link}')
+
     # Generate QR code image
     qr = qrcode.QRCode()
     qr.add_data(website_link)
