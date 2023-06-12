@@ -24,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-REGION_NAME = os.getenv('AWS_REGION_NAME')
+REGION_NAME = os.getenv('AWS_REGION')
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
