@@ -30,7 +30,7 @@ logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 # Load the AWS credentials from the .env file
-REGION_NAME = os.getenv('AWS_REGION')
+AWS_REGION = os.getenv('AWS_REGION')
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
@@ -39,7 +39,7 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 session = boto3.Session(
     aws_access_key_id=AWS_ACCESS_KEY_ID,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    region_name=REGION_NAME
+    region_name=AWS_REGION
 )
 
 # Create an S3 client
@@ -52,33 +52,37 @@ for obj in response['Contents']:
 
 @app.post('/generate_qr_code')
 async def generate_qr_code(website_link: str):
-    # log the request
-    logger.info(f'Generating QR code for {website_link}')
+    try:
+        # log the request
+        logger.info(f'Generating QR code for {website_link}')
 
-    # Generate QR code image
-    qr = qrcode.QRCode()
-    qr.add_data(website_link)
-    qr.make()
+        # Generate QR code image
+        qr = qrcode.QRCode()
+        qr.add_data(website_link)
+        qr.make()
 
-    # Create an image file from the QR code
-    qr_image = qr.make_image()
+        # Create an image file from the QR code
+        qr_image = qr.make_image()
 
-    # Generate a unique filename using a timestamp
-    timestamp = int(time.time())  # Get current timestamp
-    qr_image_path = f'qr_code_{timestamp}.png'  # Unique filename
+        # Generate a unique filename using a timestamp
+        timestamp = int(time.time())  # Get current timestamp
+        qr_image_path = f'qr_code_{timestamp}.png'  # Unique filename
 
-    # Save the QR code image to a file
-    qr_image.save(qr_image_path)
+        # Save the QR code image to a file
+        qr_image.save(qr_image_path)
 
-    # Upload the image file to the S3 bucket
-    s3.upload_file(qr_image_path, S3_BUCKET_NAME, qr_image_path)
+        # Upload the image file to the S3 bucket
+        s3.upload_file(qr_image_path, S3_BUCKET_NAME, qr_image_path)
 
-    # Remove the local image file
-    # (comment out if you want to keep a local copy)
-    os.remove(qr_image_path)
+        # Remove the local image file
+        # (comment out if you want to keep a local copy)
+        os.remove(qr_image_path)
 
-    # Construct the URL of the uploaded QR code image
-    qr_image_url = f'https://{S3_BUCKET_NAME}.s3.{REGION_NAME}.amazonaws.com/{qr_image_path}'
+        # Construct the URL of the uploaded QR code image
+        qr_image_url = f'https://{S3_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com/{qr_image_path}'
 
-    # Return the URL of the QR code image
-    return {'qr_code_url': qr_image_url}
+        # Return the URL of the QR code image
+        return {'qr_code_url': qr_image_url}
+    except Exception as e:
+        logger.error(f"Error in generate_qr_code: {e}")
+        raise

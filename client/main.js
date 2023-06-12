@@ -7,7 +7,7 @@ form.addEventListener('submit', async (e) => {
   const websiteLink = document.getElementById('websiteLink').value;
 
   try {
-    const response = await fetch(`http://localhost:8000/generate_qr_code/?website_link=${websiteLink}`, {
+    const response = await fetch(`http://tools.williamgay.me/api/generate_qr_code/?website_link=${websiteLink}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
