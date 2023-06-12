@@ -3,6 +3,7 @@ import time
 from fastapi import FastAPI
 import boto3
 import qrcode
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
 # Load the AWS credentials from the .env file
@@ -10,6 +11,18 @@ load_dotenv()
 
 # Create a FastAPI instance
 app = FastAPI()
+
+# Allow requests from the frontend
+origins = ["*"]
+
+# Add CORS middleware to allow requests from the frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 REGION_NAME = os.getenv('AWS_REGION_NAME')
 S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')

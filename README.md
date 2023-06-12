@@ -6,8 +6,7 @@ simple fullstack website that serves as a "toolbox" holding multiple python scri
 
 1. s3 photo storage X
 2. postgres table set up X (not needed)
-3. qr gen logic 
-4. fast api routes
+3. qr gen logic X
+4. fast api routes X
 5. frontend set up
-6. basic layout
-7. backend connection
+6. backend connection
