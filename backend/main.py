@@ -44,6 +44,10 @@ response = s3.list_objects_v2(Bucket=S3_BUCKET_NAME)
 for obj in response['Contents']:
     print(obj['Key'])
 
+@app.get('/')
+async def root():
+    return {'message': 'Hello World!'}
+
 @app.post('/generate_qr_code')
 async def generate_qr_code(website_link: str):
     # Generate QR code image
