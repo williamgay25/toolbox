@@ -5,6 +5,7 @@ import qrcode
 import logging
 from io import BytesIO
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -46,9 +47,13 @@ session = boto3.Session(
 # Create an S3 client
 s3 = session.client('s3')
 
-@app.get('/generate_qr_code')
-async def generate_qr_code():
-    return {'message': 'Hello World!'}
+@app.get('/')
+async def root():
+    return HTMLResponse(content='<h1>QR Code Generator</h1>')
+
+@app.get('/ping')
+async def ping():
+    return {'message': 'pong'}
 
 @app.post('/generate_qr_code')
 async def generate_qr_code(website_link: str):
