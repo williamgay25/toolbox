@@ -1,16 +1,17 @@
 import React from 'react';
+import './App.css';
 import Header from './components/Header';
 import Card from './components/Card';
 
 function App() {
   const tools = [
     {
-      toolName: 'Tool 1',
-      formComponent: <input type="text" placeholder="Enter text" />,
+      toolName: 'generate qr code',
+      formComponent: <input type="text" placeholder="enter a website"/>,
     },
     {
-      toolName: 'Tool 2',
-      formComponent: <textarea placeholder="Enter text" />,
+      toolName: 'remove image background',
+      formComponent: <input type="file"/>,
     },
   ];
 
