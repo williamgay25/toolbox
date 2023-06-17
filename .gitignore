@@ -28,3 +28,4 @@ yarn-error.log*
 # new project
 .env
 node_modules/
+.vercel
