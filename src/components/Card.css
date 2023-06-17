@@ -5,9 +5,14 @@
     box-shadow: 0 5px 10px rgba(217, 28, 28, 0.7);
     padding: 20px;
     margin-bottom: 20px;
-  }
+    transition: transform 0.3s ease;
+    }
+
+.card:hover {
+    transform: translateY(-3px);
+    }
   
-  h2 {
+h2 {
     margin-bottom: 10px;
-  }
+    }
   
