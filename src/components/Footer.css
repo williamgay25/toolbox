@@ -1,0 +1,31 @@
+/* Footer.css */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background-color: #f0f0f0;
+    text-align: center;
+  }
+  
+  footer ul {
+    list-style: none;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  footer ul li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  ul li a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  ul li a:hover {
+    text-decoration: underline;
+  }
+  

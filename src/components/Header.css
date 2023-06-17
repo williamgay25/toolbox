@@ -13,42 +13,66 @@
   header {
     display: flex;
     padding: 20px;
+    display: flex;
     flex-direction: column;
   }
-  
-  .header-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  h1 {
-    font-size: 25px;
+
+  header img {
+    height: 30px;
     margin-right: 10px;
   }
   
-  h5 {
-    font-size: 12px;
+  header h1 {
+    font-size: 25px;
+  }
+
+  nav ul {
+    list-style: none;
   }
   
-  h5 a {
-    color: inherit;
+  nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  nav ul li a {
+    color: #000;
     text-decoration: none;
   }
   
-  h5 a:hover {
-    text-decoration: underline;
+  section {
+    margin-left: 20px;
+    margin-bottom: 20px;
   }
   
-  p {
-    margin-top: 10px;
+  section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
   }
   
-  .source-code {
-    color: inherit;
+  section ul {
+    padding-left: 20px;
+  }
+  
+  section ul li {
+    margin-bottom: 5px;
+  }
+  
+  footer {
+    padding-left: 20px;
+  }
+  
+  footer ul li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  
+  ul li a {
+    color: #000;
     text-decoration: none;
   }
   
-  .source-code:hover {
+  ul li a:hover {
     text-decoration: underline;
   }
   
