@@ -8,8 +8,8 @@ function Header() {
         <nav>
         <ul>
             <li><a href="https://williamgay.me">home</a></li>
-            <li><a href="https://williamgay.me/blog.html">blog</a></li>
-            <li><a href="https://williamgay.me/books.html">books</a></li>
+            <li><a href="https://williamgay.me/pages/blog.html">blog</a></li>
+            <li><a href="https://williamgay.me/pages/books.html">books</a></li>
             <li><a href="https://tools.williamgay.me">tools</a></li>
             <li><a href="https://github.com/williamgay25">github</a></li>
             <li><a href="https://twitter.com/williamgay25">twitter</a></li>
